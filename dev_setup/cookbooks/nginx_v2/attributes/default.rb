@@ -18,6 +18,7 @@ default[:nginx_v2][:checksums][:module_headers_more_source] = "10587007913805a51
 default[:nginx_v2][:checksums][:module_devel_kit_source] = "bf5540d76d1867b4411091f16c6c786fd66759099c59483c76c68434020fdb02"
 default[:nginx_v2][:checksums][:module_lua_source] = "0802110ee2428642baab24f2b8bd6d82c0396c4f9afd023b26534adfb48f5760"
 default[:nginx_v2][:checksums][:module_sticky_source] = "6c18334d29d055bf9f21d59f9e9fb093e4dad017577f54b37c9358d315b05587"
+default[:nginx_v2][:dh_params] = "dhparam2048.pem"
 
 default[:lua][:version] = "5.1.4"
 default[:lua][:simple_version] = lua[:version].match(/\d+\.\d+/).to_s # something like 5.1

@@ -200,7 +200,6 @@ when "ubuntu"
         make install
       EOH
     end
-
   end # don't make and reinstall nginx+lua if it was already done.
 
   # for now delete the repo first.
@@ -279,6 +278,16 @@ when "ubuntu"
     mode 0755
   end
 =end
+
+  bash "Install dhparam2048" do
+    code <<-CMD
+    sudo openssl dhparam -out #{node[:nginx][:ssl][:config_dir]}/#{node[:nginx_v2][:dh_params]} 2048
+    CMD
+    notifies :restart, "service[nginx_router]"
+    not_if do
+      ::File.exists?(File.join(node[:nginx][:ssl][:config_dir], node[:nginx_v2][:dh_params]))
+    end
+  end
 
   bash "Add *.intalio.local hostnames to /etc/host" do
     # This is needed for nginx config for port routing to resolve correctly 
