@@ -68,6 +68,21 @@ EOH
         `sed -i.bkup -e "s/^\s*listen_addresses.*$/listen_addresses='#{node[:postgresql_node][:listen_addresses]}'/" #{postgresql_conf_file}`
       end
 
+      `grep "^\s*lo_compat_privileges" #{postgresql_conf_file}`
+      if $?.exitstatus != 0
+        #This command is easy but it inserts it at the very end which is surprising to the sys admin.
+        #let's look for the usually commented out line
+        #and e=insert below it. if we can't find it then we will append.
+        `grep "^\s*#lo_compat_privileges" #{postgresql_conf_file}`
+        if $?.exitstatus != 0
+          `sed -i "/^\s*#lo_compat_privileges.*/a \lo_compat_privileges=on" #{postgresql_conf_file}`
+        else
+          `echo "lo_compat_privileges=on" >> #{postgresql_conf_file}`
+        end
+      else
+        `sed -i.bkup -e "s/^\s*lo_compat_privileges.*$/lo_compat_privileges=on/" #{postgresql_conf_file}`
+      end
+
       # update the local psql connections to psotgres.
       unless node[:postgresql_node][:local_acl].nil?
         #replace 'local   all             all                                     peer'
