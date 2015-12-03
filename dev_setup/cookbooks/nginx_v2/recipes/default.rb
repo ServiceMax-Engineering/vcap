@@ -289,13 +289,13 @@ when "ubuntu"
     end
   end
 
-  bash "Add *.intalio.local hostnames to /etc/host" do
+  bash "Add *.servicemax.local hostnames to /etc/host" do
     # This is needed for nginx config for port routing to resolve correctly 
     code <<-EOH
-      intalio_host=`grep "intalio.local" /etc/hosts`
-      if [ -z "$intalio_host" ]; then
+      servicemax_host=`grep "servicemax.local" /etc/hosts`
+      if [ -z "$servicemax_host" ]; then
         sudo sed -i '$a #Do NOT remove! This is needed for nginx config for port routing to resolve correctly' /etc/hosts
-        sudo sed -i '$a 127.0.0.1 api.intalio.priv db.intalio.priv intalio.local oauth.intalio.local admin.intalio.local cdn.intalio.local' /etc/hosts
+        sudo sed -i '$a 127.0.0.1 api.intalio.priv db.intalio.priv servicemax.local oauth.servicemax.local admin.servicemax.local cdn.servicemax.local' /etc/hosts
       fi
     EOH
   end

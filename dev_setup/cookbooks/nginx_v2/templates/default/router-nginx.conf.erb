@@ -62,7 +62,7 @@ http {
         proxy_set_header            X-HTTP-HOST $http_host;
           
         set $app_id 3;
-        proxy_pass http://intalio.local/admin/;
+        proxy_pass http://servicemax.local/admin/;
         
       }
   }
@@ -80,7 +80,7 @@ http {
         proxy_read_timeout          480;                  
 
         set $app_id 1;
-        proxy_pass http://intalio.local;
+        proxy_pass http://servicemax.local;
         
       }
   }  
@@ -94,7 +94,7 @@ http {
           proxy_set_header            X-HTTP-HOST $http_host;
                 
           set $app_id 2;
-          proxy_pass http://intalio.local/sec/;
+          proxy_pass http://servicemax.local/sec/;
       }
 
   }
